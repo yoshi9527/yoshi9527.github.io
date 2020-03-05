@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yoshi.github.io</id>
-    <title>Gridea</title>
-    <updated>2020-03-05T05:04:10.080Z</updated>
+    <title>Yoshi</title>
+    <updated>2020-03-05T05:20:16.165Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yoshi.github.io"/>
     <link rel="self" href="https://yoshi.github.io/atom.xml"/>
-    <subtitle>温故而知新</subtitle>
+    <subtitle>你真棒啊！！！</subtitle>
     <logo>https://yoshi.github.io/images/avatar.png</logo>
     <icon>https://yoshi.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, Gridea</rights>
+    <rights>All rights reserved 2020, Yoshi</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
         <id>https://yoshi.github.io/post/hello-gridea/</id>
