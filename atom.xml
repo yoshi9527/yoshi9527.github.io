@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://yy0112.github.io/</id>
+    <id>https://yoshi9527.github.io</id>
     <title>Yoshi</title>
-    <updated>2020-03-14T15:49:47.348Z</updated>
+    <updated>2020-03-14T15:56:59.151Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://yy0112.github.io/"/>
-    <link rel="self" href="https://yy0112.github.io/atom.xml"/>
+    <link rel="alternate" href="https://yoshi9527.github.io"/>
+    <link rel="self" href="https://yoshi9527.github.io/atom.xml"/>
     <subtitle>哈哈哈哈</subtitle>
-    <logo>https://yy0112.github.io/images/avatar.png</logo>
-    <icon>https://yy0112.github.io/favicon.ico</icon>
+    <logo>https://yoshi9527.github.io/images/avatar.png</logo>
+    <icon>https://yoshi9527.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Yoshi</rights>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://yy0112.github.io/post/hello-gridea/</id>
-        <link href="https://yy0112.github.io/post/hello-gridea/">
+        <id>https://yoshi9527.github.io/post/hello-gridea/</id>
+        <link href="https://yoshi9527.github.io/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
