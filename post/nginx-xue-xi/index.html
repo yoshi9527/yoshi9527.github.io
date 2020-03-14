@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="UTF-8"/>
+    <meta charset="UTF-8"/>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="">
 <meta name="description" content="努力点，行吗！！！">
 <meta name="theme-color" content="">
-<title>Yoshi</title>
+<title>Nginx	学习 | Yoshi</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1584204105157">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/pisces.css">
@@ -27,6 +27,8 @@
 
 
 
+    <meta name="description" content="Nginx	学习" />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div class="head-top-line"></div>
@@ -55,7 +57,7 @@
       <nav class="site-nav" id="site_nav">
         <ul id="nav_ul">
           
-            <li class="nav-item nav-item-active">
+            <li class="nav-item ">
               
               
                 <a href="/" target="_self">
@@ -126,68 +128,100 @@
     </div>
     <div class="main-continer">
       
-      <div class="section-layout  ">
+      <div class="section-layout pisces ">
         <div class="section-layout-wrapper">
-          <div id="sidebarMeta" class="sidebar">
-    
-<div class="sidebar-wrapper box-shadow-wrapper bg-color">
-  <div class="sidebar-item">
-    <img class="site-author-image right-motion" src="https://yoshi9527.github.io/images/avatar.png"/>
-    <p class="site-author-name">Yoshi</p>
-    <p class="site-description right-motion">努力点，行吗！！！</p>
-  </div>
-  <div class="sidebar-item side-item-stat right-motion">
-    <div class="sidebar-item-box">
-      <a href="/archives/">
+          
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+      <div class="sidebar-body " id="sidebar_body">
         
-        <span class="site-item-stat-count">2</span>
-        <span class="site-item-stat-name">文章</span>
-      </a>
-    </div>
-    <div class="sidebar-item-box">
-      <a href="">
-        <span class="site-item-stat-count">1</span>
-        <span class="site-item-stat-name">分类</span>
-      </a>
-    </div>
-    <div class="sidebar-item-box">
-      <a href="/tags/">
-        <span class="site-item-stat-count">1</span>
-        <span class="site-item-stat-name">标签</span>
-      </a>
-    </div>
-  </div>
-  
-    
-      <div class="sidebar-item" style="border-top: 1px dotted #ccc; margin-top: 10px;">
       </div>
-    
+    </div>
   
-  
-
-
-</div>
 </div>
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = '';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
       }
-    });
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
   }
-  </script>
-          <div class="section-box ">
-            <section class="section bg-color posts-expand slide-down-in">
-              
-  <article class="post-list-box  post box-shadow-wrapper">
-    <div class="article-wrapper bg-color">
-      <header class="post-header">
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+          <div class="section-box box-shadow-wrapper">
+            <div class="section bg-color post post-page">
+              <header class="post-header">
   <h1 class="post-title">
     <a class="post-title-link" href="https://yoshi9527.github.io/post/nginx-xue-xi/">
       Nginx	学习
@@ -214,108 +248,79 @@
     
   </div>
 </header>
-      <div class="post-body">
-        
-          
-        
-        
-        <div class="post-button text-center">
-          <a class="btn" href="https://yoshi9527.github.io/post/nginx-xue-xi/" rel="contents">
-            阅读全文 »
-          </a>
-        </div>
-        
-      </div>
-      
-        <footer class="post-footer">
-          <div class="post-eof"></div>
-        </footer>
-      
-    </div>
-  </article>
+              <div class="post-body next-md-body" id="post_body">
+                <h3 id="什么是-nginx-它有什么用">什么是 nginx ？它有什么用?</h3>
+<ul>
+<li>
+<p>nginx是一个高性能的反向代理服务器，它的作用主要可以体现在三个方面:</p>
+<ol>
+<li>对服务器进行反向代理</li>
+<li>在高并发情况下，对请求进行负载均衡，缓解高并发情况下，单台服务器的压力</li>
+<li>动静分离，将动态资源与静态资源存放到不同的服务器中</li>
+</ol>
+</li>
+<li>
+<p>我们会在哪一些地方使用到nginx?</p>
+<ol>
+<li>
+<p>在高并发环境中，会使用nginx进行负载均衡</p>
+</li>
+<li>
+<p>在使用分布文件系统时，会使用nginx进行反向代理（例如，我们后面会讲解的Fastdfs）</p>
+</li>
+<li>
+<p>在springcloud中，要使用nginx进行反向代理</p>
+</li>
+</ol>
+</li>
+<li>
+<p>nginx的作用，三个方面:</p>
+<ol>
+<li>反向代理:对服务器进行代理</li>
+<li>负载均衡：通过nginx可以代理多台服务器，以前由一台服务器处理的请求，可以分散到多台服务器中进行处理，轻减<br>
+单台服务器的压力</li>
+<li>动静分离: 将静态资源，存放到代理服务器中，将真正要动态加载的数据从真正处理请求的服务器中获得，这样可以加快程序的访问速度</li>
+</ol>
+</li>
+</ul>
+<h4 id="nginx-它的默认端口是-80端口">nginx 它的默认端口是 80端口</h4>
 
-  <article class="post-list-box  post box-shadow-wrapper">
-    <div class="article-wrapper bg-color">
-      <header class="post-header">
-  <h1 class="post-title">
-    <a class="post-title-link" href="https://yoshi9527.github.io/post/hello-gridea/">
-      Hello Gridea
-    </a>
-  </h1>
-  <div class="post-meta">
-    
-    <span class="meta-item pc-show">
-      <i class="fa fa-calendar-o"></i>
-      <span>发布于</span>
-      <span>2018-12-12</span>
-      <span class="post-meta-divider pc-show">|</span>
-    </span>
-    
-      <span class="meta-item">
-        <i class="fa fa-folder-o"></i>
-        <span class="pc-show">分类于</span>
-        
-          
-            <a href="https://yoshi9527.github.io/tag/Oc6syLhGD/">
-              <span>Gridea</span>
-            </a>
-          
-        
-      </span>
-      <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
-      <i class="fa fa-clock-o"></i>
-      <span>2分钟</span>
-    </span>
-    <span class="meta-item">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-file-word-o"></i>
-      <span>298<span class="pc-show">字数</span></span>
-    </span>
+              </div>
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Yoshi
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://yoshi9527.github.io/post/nginx-xue-xi/" title="Nginx	学习">Nginx	学习</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
     
   </div>
-</header>
-      <div class="post-body">
-        
-          <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-
-        
-        
-        <div class="post-button text-center">
-          <a class="btn" href="https://yoshi9527.github.io/post/hello-gridea/" rel="contents">
-            阅读全文 »
-          </a>
-        </div>
-        
-      </div>
-      
-        <footer class="post-footer">
-          <div class="post-eof"></div>
-        </footer>
+  <div class="nav">
+    <div class="nav-prev">
       
     </div>
-  </article>
-  
-              
-              
-<div class="page bg-color">
-  <ul class="pagination-ul">
-    
-    
+    <div class="nav-next">
       
-        <li class="pagination-li pagination-active">
-            <a href="/page/../">
-              1
-            </a>
-        </li>
+        <a class="nav-pc-next" title="Hello Gridea" href="https://yoshi9527.github.io/post/hello-gridea/">Hello Gridea</a>
+        <a class="nav-mobile-next" title="Hello Gridea" href="https://yoshi9527.github.io/post/hello-gridea/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
       
-    
-    
-  </ul>
+    </div>
+  </div>
 </div>
-            </section>
+              
+                
+              
+            </div>
           </div>
         </div>
       </div>
